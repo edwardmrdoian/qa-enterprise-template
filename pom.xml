@@ -28,7 +28,7 @@
         <datafaker.version>2.4.0</datafaker.version>
         <hikaricp.version>5.1.0</hikaricp.version>
         <jdbi.version>3.45.1</jdbi.version>
-        <postgresql.version>42.7.4</postgresql.version>
+        <postgresql.version>42.7.14</postgresql.version>
         <h2.version>2.3.232</h2.version>
         <amqp-client.version>5.22.0</amqp-client.version>
         <wiremock.version>3.9.2</wiremock.version>
