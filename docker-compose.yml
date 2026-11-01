@@ -1,0 +1,17 @@
+# Local infrastructure for the integration tests:  docker compose up -d
+# Then run:  mvn test -Drabbit.enabled=true -Delastic.enabled=true
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"   # UI: http://localhost:15672 (guest/guest)
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"

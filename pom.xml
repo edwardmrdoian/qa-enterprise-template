@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.company.qa</groupId>
+    <artifactId>qa-enterprise-template</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>QA Enterprise Template</name>
+
+    <properties>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Dependency versions -->
+        <junit.jupiter.version>5.11.0</junit.jupiter.version>
+        <playwright.version>1.49.0</playwright.version>
+        <rest-assured.version>5.5.0</rest-assured.version>
+        <jackson.version>2.17.2</jackson.version>
+        <assertj.version>3.26.3</assertj.version>
+        <awaitility.version>4.2.2</awaitility.version>
+        <owner.version>1.0.12</owner.version>
+        <instancio.version>5.0.2</instancio.version>
+        <datafaker.version>2.4.0</datafaker.version>
+        <hikaricp.version>5.1.0</hikaricp.version>
+        <jdbi.version>3.45.1</jdbi.version>
+        <postgresql.version>42.7.4</postgresql.version>
+        <h2.version>2.3.232</h2.version>
+        <amqp-client.version>5.22.0</amqp-client.version>
+        <wiremock.version>3.9.2</wiremock.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <logback.version>1.5.8</logback.version>
+        <allure.version>2.29.0</allure.version>
+        <aspectj.version>1.9.26</aspectj.version>
+
+        <!-- Plugin versions -->
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <allure-maven.version>2.13.0</allure-maven.version>
+
+        <!-- Run-time knobs (override with -D on the command line) -->
+        <rerun.count>0</rerun.count>
+        <unsafe.arg></unsafe.arg>
+
+        <!-- Values written into the Allure "Environment" widget -->
+        <env>qa</env>
+        <browser>chromium</browser>
+        <headless>true</headless>
+    </properties>
+
+    <dependencies>
+        <!-- Test engine -->
+        <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>${junit.jupiter.version}</version></dependency>
+        <dependency><groupId>org.assertj</groupId><artifactId>assertj-core</artifactId><version>${assertj.version}</version></dependency>
+        <dependency><groupId>org.awaitility</groupId><artifactId>awaitility</artifactId><version>${awaitility.version}</version></dependency>
+
+        <!-- UI -->
+        <dependency><groupId>com.microsoft.playwright</groupId><artifactId>playwright</artifactId><version>${playwright.version}</version></dependency>
+
+        <!-- API -->
+        <dependency><groupId>io.rest-assured</groupId><artifactId>rest-assured</artifactId><version>${rest-assured.version}</version></dependency>
+        <dependency><groupId>io.rest-assured</groupId><artifactId>json-schema-validator</artifactId><version>${rest-assured.version}</version></dependency>
+        <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>${jackson.version}</version></dependency>
+        <dependency><groupId>com.fasterxml.jackson.datatype</groupId><artifactId>jackson-datatype-jsr310</artifactId><version>${jackson.version}</version></dependency>
+        <dependency><groupId>org.wiremock</groupId><artifactId>wiremock-standalone</artifactId><version>${wiremock.version}</version><scope>test</scope></dependency>
+
+        <!-- Database -->
+        <dependency><groupId>com.zaxxer</groupId><artifactId>HikariCP</artifactId><version>${hikaricp.version}</version></dependency>
+        <dependency><groupId>org.jdbi</groupId><artifactId>jdbi3-core</artifactId><version>${jdbi.version}</version></dependency>
+        <dependency><groupId>org.jdbi</groupId><artifactId>jdbi3-sqlobject</artifactId><version>${jdbi.version}</version></dependency>
+        <dependency><groupId>org.postgresql</groupId><artifactId>postgresql</artifactId><version>${postgresql.version}</version></dependency>
+        <dependency><groupId>com.h2database</groupId><artifactId>h2</artifactId><version>${h2.version}</version></dependency>
+
+        <!-- Messaging -->
+        <dependency><groupId>com.rabbitmq</groupId><artifactId>amqp-client</artifactId><version>${amqp-client.version}</version></dependency>
+
+        <!-- Config and test data -->
+        <dependency><groupId>org.aeonbits.owner</groupId><artifactId>owner</artifactId><version>${owner.version}</version></dependency>
+        <dependency><groupId>org.instancio</groupId><artifactId>instancio-junit</artifactId><version>${instancio.version}</version></dependency>
+        <dependency><groupId>net.datafaker</groupId><artifactId>datafaker</artifactId><version>${datafaker.version}</version></dependency>
+
+        <!-- Logging -->
+        <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>${slf4j.version}</version></dependency>
+        <dependency><groupId>ch.qos.logback</groupId><artifactId>logback-classic</artifactId><version>${logback.version}</version></dependency>
+
+        <!-- Reporting -->
+        <dependency><groupId>io.qameta.allure</groupId><artifactId>allure-junit5</artifactId><version>${allure.version}</version></dependency>
+        <dependency><groupId>io.qameta.allure</groupId><artifactId>allure-rest-assured</artifactId><version>${allure.version}</version></dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <argLine>
+                        ${unsafe.arg}
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <!-- Re-run failed tests N times: mvn test -Drerun.count=1 (Allure marks them as flaky) -->
+                    <rerunFailingTestsCount>${rerun.count}</rerunFailingTestsCount>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- Copies Allure categories + environment widget into the results folder -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-allure-files</id>
+                        <phase>process-test-resources</phase>
+                        <goals><goal>copy-resources</goal></goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/allure-results</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/test/resources/allure</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
