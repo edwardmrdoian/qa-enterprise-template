@@ -39,7 +39,7 @@
 
         <!-- Plugin versions -->
         <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
-        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
         <allure-maven.version>2.13.0</allure-maven.version>
 
         <!-- Run-time knobs (override with -D on the command line) -->
