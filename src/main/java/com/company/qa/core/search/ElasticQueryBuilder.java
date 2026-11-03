@@ -1,7 +1,6 @@
 package com.company.qa.core.search;
 
 import com.company.qa.utils.JsonUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -9,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Fluent builder for Elasticsearch search bodies (bool query + paging + sorting).
- * Usage: ElasticQueryBuilder.create().filterTerm("service.keyword", "payments").mustMatch("message", "timeout").size(20)
+ * Fluent builder for Elasticsearch search bodies (bool query + paging + sorting). Usage:
+ * ElasticQueryBuilder.create().filterTerm("service.keyword", "payments").mustMatch("message",
+ * "timeout").size(20)
  */
 public final class ElasticQueryBuilder {
 
@@ -84,11 +84,13 @@ public final class ElasticQueryBuilder {
     // ----- paging / sorting -----
 
     public ElasticQueryBuilder size(int size) {
+        if (size < 0) throw new IllegalArgumentException("size must not be negative");
         this.size = size;
         return this;
     }
 
     public ElasticQueryBuilder from(int from) {
+        if (from < 0) throw new IllegalArgumentException("from must not be negative");
         this.from = from;
         return this;
     }
@@ -110,9 +112,8 @@ public final class ElasticQueryBuilder {
             bool.put("should", should);
             bool.put("minimum_should_match", 1);
         }
-        Map<String, Object> query = bool.isEmpty()
-                ? Map.of("match_all", Map.of())
-                : Map.of("bool", bool);
+        Map<String, Object> query =
+                bool.isEmpty() ? Map.of("match_all", Map.of()) : Map.of("bool", bool);
         return Map.of("query", query);
     }
 

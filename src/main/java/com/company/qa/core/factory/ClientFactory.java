@@ -5,8 +5,8 @@ import com.company.qa.core.messaging.RabbitMqClient;
 import com.company.qa.core.search.ElasticClient;
 
 /**
- * Single place to obtain service clients. Tests never call "new" on infrastructure classes,
- * so swapping implementations (mock, container, remote) happens here only.
+ * Convenience constructors for configured services and isolated mock endpoints. Tests may construct
+ * clients directly when they need explicit dependencies.
  */
 public final class ClientFactory {
 
@@ -14,6 +14,10 @@ public final class ClientFactory {
 
     public static UserApiClient userApi() {
         return new UserApiClient();
+    }
+
+    public static UserApiClient userApi(String baseUrl) {
+        return new UserApiClient(baseUrl);
     }
 
     /** New connection per call (channels are not thread-safe). Close it with try-with-resources. */

@@ -2,17 +2,21 @@ package com.company.qa.repositories;
 
 import com.company.qa.core.db.DatabaseManager;
 import com.company.qa.models.UserRecord;
+import java.util.Optional;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
-import java.util.Optional;
-
 public interface UserRepository {
 
-    @SqlUpdate("INSERT INTO users (id, name, job, email, created_at) VALUES (:id, :name, :job, :email, :createdAt)")
-    void insert(@Bind("id") String id, @Bind("name") String name, @Bind("job") String job,
-                @Bind("email") String email, @Bind("createdAt") String createdAt);
+    @SqlUpdate(
+            "INSERT INTO users (id, name, job, email, created_at) VALUES (:id, :name, :job, :email, :createdAt)")
+    void insert(
+            @Bind("id") String id,
+            @Bind("name") String name,
+            @Bind("job") String job,
+            @Bind("email") String email,
+            @Bind("createdAt") String createdAt);
 
     @SqlQuery("SELECT id, name, job, email, created_at FROM users WHERE id = :id")
     Optional<UserRecord> findById(@Bind("id") String id);
@@ -24,6 +28,12 @@ public interface UserRepository {
     void deleteById(@Bind("id") String id);
 
     static UserRepository create() {
-        return DatabaseManager.jdbi().onDemand(UserRepository.class);
+        return create(DatabaseManager.jdbi());
+    }
+
+    static UserRepository create(org.jdbi.v3.core.Jdbi database) {
+        database.registerRowMapper(
+                org.jdbi.v3.core.mapper.reflect.ConstructorMapper.factory(UserRecord.class));
+        return database.onDemand(UserRepository.class);
     }
 }

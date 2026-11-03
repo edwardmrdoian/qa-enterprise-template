@@ -1,8 +1,15 @@
 package com.company.qa.pages;
 
+import com.microsoft.playwright.Page;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 
 public class LoginPage extends BasePage {
+    public LoginPage() {}
+
+    public LoginPage(Page page) {
+        super(page);
+    }
 
     private static final String USERNAME = "#username";
     private static final String PASSWORD = "#password";
@@ -15,11 +22,14 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    @Step("Login as {username}")
     public LoginPage loginAs(String username, String password) {
-        locator(USERNAME).fill(username);
-        locator(PASSWORD).fill(password);
-        locator(SUBMIT).click();
+        Allure.step(
+                "Log in",
+                () -> {
+                    locator(USERNAME).fill(username);
+                    locator(PASSWORD).fill(password);
+                    locator(SUBMIT).click();
+                });
         return this;
     }
 

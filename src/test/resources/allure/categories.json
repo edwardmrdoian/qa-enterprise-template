@@ -1,15 +1,15 @@
 [
   {
-    "name": "Infrastructure problems",
+    "name": "Connection failures",
     "matchedStatuses": ["broken", "failed"],
-    "messageRegex": ".*(Timeout|ConnectException|UnknownHost|Connection refused|Cannot connect).*"
+    "messageRegex": ".*(ConnectException|UnknownHost|Connection refused|Cannot connect).*"
   },
   {
-    "name": "Product defects",
+    "name": "Assertion failures",
     "matchedStatuses": ["failed"]
   },
   {
-    "name": "Test defects",
+    "name": "Execution errors",
     "matchedStatuses": ["broken"]
   },
   {

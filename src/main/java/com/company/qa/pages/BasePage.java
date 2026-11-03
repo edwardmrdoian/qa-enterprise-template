@@ -5,12 +5,20 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 /**
- * Playwright auto-waits for elements to be visible, enabled and stable before acting,
- * so page objects need no manual wait code.
+ * Playwright auto-waits for elements to be visible, enabled and stable before acting, so page
+ * objects need no manual wait code.
  */
 public abstract class BasePage {
 
-    protected final Page page = PlaywrightManager.page();
+    protected final Page page;
+
+    protected BasePage() {
+        this(PlaywrightManager.page());
+    }
+
+    protected BasePage(Page page) {
+        this.page = java.util.Objects.requireNonNull(page, "page");
+    }
 
     protected Locator locator(String selector) {
         return page.locator(selector);

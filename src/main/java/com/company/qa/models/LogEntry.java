@@ -2,7 +2,6 @@ package com.company.qa.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,8 +22,13 @@ public record LogEntry(
     }
 
     public Builder toBuilder() {
-        return new Builder().timestamp(timestamp).level(level).service(service)
-                .message(message).traceId(traceId).fields(fields);
+        return new Builder()
+                .timestamp(timestamp)
+                .level(level)
+                .service(service)
+                .message(message)
+                .traceId(traceId)
+                .fields(fields);
     }
 
     public static final class Builder {
@@ -35,12 +39,36 @@ public record LogEntry(
         private String traceId = UUID.randomUUID().toString();
         private final Map<String, Object> fields = new LinkedHashMap<>();
 
-        public Builder timestamp(Instant timestamp) { this.timestamp = timestamp; return this; }
-        public Builder level(String level) { this.level = level; return this; }
-        public Builder service(String service) { this.service = service; return this; }
-        public Builder message(String message) { this.message = message; return this; }
-        public Builder traceId(String traceId) { this.traceId = traceId; return this; }
-        public Builder field(String key, Object value) { this.fields.put(key, value); return this; }
+        public Builder timestamp(Instant timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        public Builder level(String level) {
+            this.level = level;
+            return this;
+        }
+
+        public Builder service(String service) {
+            this.service = service;
+            return this;
+        }
+
+        public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public Builder traceId(String traceId) {
+            this.traceId = traceId;
+            return this;
+        }
+
+        public Builder field(String key, Object value) {
+            this.fields.put(key, value);
+            return this;
+        }
+
         public Builder fields(Map<String, Object> fields) {
             if (fields != null) this.fields.putAll(fields);
             return this;

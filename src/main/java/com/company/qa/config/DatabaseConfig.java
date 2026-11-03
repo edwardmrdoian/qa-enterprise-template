@@ -1,15 +1,7 @@
 package com.company.qa.config;
 
 import org.aeonbits.owner.Config;
-import org.aeonbits.owner.ConfigCache;
 
-@Config.LoadPolicy(Config.LoadType.MERGE)
-@Config.Sources({
-    "system:properties",
-    "system:env",
-    "classpath:config/${env}.properties",
-    "classpath:config/qa.properties"
-})
 public interface DatabaseConfig extends Config {
 
     @Key("db.driver")
@@ -34,6 +26,6 @@ public interface DatabaseConfig extends Config {
     int dbMinIdle();
 
     static DatabaseConfig get() {
-        return ConfigCache.getOrCreate(DatabaseConfig.class);
+        return ConfigSupport.load(DatabaseConfig.class);
     }
 }

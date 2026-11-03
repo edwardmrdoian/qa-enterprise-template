@@ -1,27 +1,34 @@
 package com.company.qa.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.company.qa.clients.UserApiClient;
 import com.company.qa.core.api.ApiSpecificationFactory;
 import com.company.qa.models.UserRecord;
 import com.company.qa.utils.TestDataFactory;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIf;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-/** Runs against the real service (reqres.in). Skipped automatically when no API key is configured. */
+/**
+ * Runs against the real service (reqres.in). Skipped automatically when no API key is configured.
+ */
 @Feature("Users API (real service)")
 @Tag("api")
 @Tag("regression")
-@EnabledIf("hasApiKey")
+@Tag("example")
+@Tag("external")
 class UserApiTest {
 
-    static boolean hasApiKey() {
-        return !ApiSpecificationFactory.apiKey().isBlank();
+    @BeforeEach
+    void requireCredentials() {
+        if (ApiSpecificationFactory.apiKey().isBlank()) {
+            throw new IllegalStateException(
+                    "External API examples require API_KEY or -Dapi.key. Use the default framework suite for offline tests.");
+        }
     }
 
     private final UserApiClient client = new UserApiClient();
