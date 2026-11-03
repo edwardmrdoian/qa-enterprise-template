@@ -1,7 +1,6 @@
 package com.company.qa.core.search;
 
 import com.company.qa.utils.JsonUtils;
-
 import java.util.List;
 import java.util.Map;
 

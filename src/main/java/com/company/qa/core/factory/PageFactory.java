@@ -11,8 +11,11 @@ public final class PageFactory {
         try {
             return pageType.getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException("Cannot create page " + pageType.getSimpleName()
-                    + ". It needs a public no-arg constructor.", e);
+            throw new IllegalStateException(
+                    "Cannot create page "
+                            + pageType.getSimpleName()
+                            + ". It needs a public no-arg constructor.",
+                    e);
         }
     }
 }

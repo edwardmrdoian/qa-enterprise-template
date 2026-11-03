@@ -1,16 +1,11 @@
 package com.company.qa.config;
 
 import org.aeonbits.owner.Config;
-import org.aeonbits.owner.ConfigCache;
 
-@Config.LoadPolicy(Config.LoadType.MERGE)
-@Config.Sources({
-    "system:properties",
-    "system:env",
-    "classpath:config/${env}.properties",
-    "classpath:config/qa.properties"
-})
 public interface FrameworkConfig extends Config {
+
+    @Key("env")
+    String environment();
 
     @Key("base.url")
     String baseUrl();
@@ -34,7 +29,13 @@ public interface FrameworkConfig extends Config {
     @DefaultValue("10")
     int timeoutSeconds();
 
+    @Key("api.connect.timeout.ms")
+    int apiConnectTimeoutMs();
+
+    @Key("api.read.timeout.ms")
+    int apiReadTimeoutMs();
+
     static FrameworkConfig get() {
-        return ConfigCache.getOrCreate(FrameworkConfig.class);
+        return ConfigSupport.load(FrameworkConfig.class);
     }
 }
