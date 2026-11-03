@@ -19,7 +19,7 @@
         <!-- Dependency versions -->
         <junit.jupiter.version>5.11.0</junit.jupiter.version>
         <playwright.version>1.49.0</playwright.version>
-        <rest-assured.version>5.5.0</rest-assured.version>
+        <rest-assured.version>6.3.0</rest-assured.version>
         <jackson.version>2.17.2</jackson.version>
         <assertj.version>3.26.3</assertj.version>
         <awaitility.version>4.2.2</awaitility.version>
